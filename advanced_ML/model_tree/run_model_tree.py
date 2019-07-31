@@ -22,10 +22,15 @@ def main():
     # Load data
     # ====================
 
+    # directory = '/Users/xiangyusun/Development/LearningX/advanced_ML/model_tree/data'
+    # directory = '~/Desktop/LearningX/advanced_ML/model_tree/data'
+    directory = '/cs/oschulte/xiangyus/LearningX'
+
     # training_file_name = 'data_clf.csv'
     # training_file_name = 'sportlogiq_data_pass_2019_07_22_08_54_17_small.csv'
     training_file_name = 'sportlogiq_data_pass_2019_07_22_08_54_17.csv'
-    data_csv_data_filename = os.path.join('/Users/xiangyusun/Development/LearningX/advanced_ML/model_tree/data', training_file_name)
+
+    data_csv_data_filename = os.path.join(directory, training_file_name)
 
     X, y, header = load_csv_data(data_csv_data_filename, mode=mode, verbose=True)
 
@@ -79,19 +84,19 @@ def main():
     explanations = model_tree.explain(X, header)
     loss = model_tree.loss(X, y, y_pred)
     print(" -> loss_train={:.6f}\n".format(loss))
-    model_tree.export_graphviz(os.path.join("/Users/xiangyusun/Development/LearningX/advanced_ML/model_tree/output", "model_tree"), header,
+    model_tree.export_graphviz(os.path.join(directory, "model_tree"), header,
                                export_png=True, export_pdf=False)
 
     # ====================
     # Save model tree results
     # ====================
     if save_model_tree:
-        model_tree_filename = os.path.join("/Users/xiangyusun/Development/LearningX/advanced_ML/model_tree/output", "model_tree.p")
+        model_tree_filename = os.path.join(directory, "model_tree.p")
         print("Saving model tree to '{}'...".format(model_tree_filename))
         pickle.dump(model, open(model_tree_filename, 'wb'))
 
     if save_model_tree_predictions:
-        predictions_csv_filename = os.path.join("/Users/xiangyusun/Development/LearningX/advanced_ML/model_tree/output", "model_tree_pred.csv")
+        predictions_csv_filename = os.path.join(directory, "model_tree_pred.csv")
         print("Saving mode tree predictions to '{}'".format(predictions_csv_filename))
         with open(predictions_csv_filename, "w") as f:
             writer = csv.writer(f)
